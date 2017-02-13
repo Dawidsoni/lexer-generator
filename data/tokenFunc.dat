@@ -1,0 +1,50 @@
+class TokenVal {
+public:
+  TokenVal() {}
+  TokenVal(TokenType tokenType, string tokenVal) {
+    this->tokenType = tokenType;
+    this->tokenVal = tokenVal;
+  }
+  TokenType tokenType;
+  string tokenVal;
+};
+
+class TokenException : public exception {
+   const char* what() const throw() {
+      return "Incorrect input string";
+   }
+};
+
+bool isEndState(int state) {
+  return (endStateList[state] != -1);
+}
+
+pair<TokenVal, string> getTokenFuncResult(int state, string text, int textPos) {
+  TokenVal tokenVal((TokenType)endStateList[state], text.substr(0, textPos));
+  string suffix = text.substr(textPos);
+  return pair<TokenVal, string>(tokenVal, suffix);
+}
+
+pair<TokenVal, string> getToken(string text) {
+  int curState = 0, lastEndState = -1, textPos = 0, lastEndPos = -1;
+  while(textPos != text.size()) {
+    int letterInd = letterList[text[textPos++]];
+    if(letterInd == -1) {
+			throw TokenException();
+		}
+    curState = transList[curState][letterInd];
+		if(curState != -1 && isEndState(curState)) {
+			lastEndState = curState;
+			lastEndPos = textPos;
+		}
+    if(curState == -1 && lastEndState == -1) {
+			throw TokenException();
+    }else if(curState == -1) {
+			return getTokenFuncResult(lastEndState, text, lastEndPos);
+    }
+  }
+	if(lastEndState == -1) {
+		throw TokenException();
+	}
+  return getTokenFuncResult(lastEndState, text, lastEndPos);
+}

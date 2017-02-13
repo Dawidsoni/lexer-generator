@@ -1,0 +1,33 @@
+tokens :  signedNumber, number, space, operator, lparenthesis, rparenthesis, bin_number, hex_number, float_number
+
+signedNumber => '+' nat | '-' nat
+number => nat
+nat => '0' nat_aux | '1' nat_aux  | '2' nat_aux | '3' nat_aux | '4' nat_aux
+nat => '5' nat_aux | '6' nat_aux  | '7' nat_aux | '8' nat_aux | '9' nat_aux
+nat_aux => nat | .
+
+bin_number => bin
+bin => '0' bin_aux | '1' bin_aux
+bin_aux => bin | 'b'
+
+hex_number => 'F' hex
+hex => '0' hex_aux | '1' hex_aux  | '2' hex_aux | '3' hex_aux | '4' hex_aux
+hex => '5' hex_aux | '6' hex_aux  | '7' hex_aux | '8' hex_aux | '9' hex_aux
+hex => 'A' hex_aux | 'B' hex_aux  | 'C' hex_aux | 'D' hex_aux | 'E' hex_aux | 'F' hex_aux
+hex_aux => hex | .
+
+float_number => float
+float => '0' float_aux | '1' float_aux  | '2' float_aux | '3' float_aux | '4' float_aux
+float => '5' float_aux | '6' float_aux  | '7' float_aux | '8' float_aux | '9' float_aux
+float_aux => float | '.' decimal
+decimal => '0' decimal_aux | '1' decimal_aux  | '2' decimal_aux | '3' decimal_aux | '4' decimal_aux
+decimal => '5' decimal_aux | '6' decimal_aux  | '7' decimal_aux | '8' decimal_aux | '9' decimal_aux
+decimal_aux => decimal | .
+
+space => ' ' | ' ' space
+
+operator => '+' | '-' |  '*' |  '/'
+
+lparenthesis => '('
+
+rparenthesis => ')'
