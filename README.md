@@ -2,7 +2,7 @@
 
 ## Description
 
-This program takes an input file with regular grammar as input and returns a file with C++ function which matches input string with tokens in linear time.
+This program takes file with regular grammar as input and returns a file with C++ function which matches input string with tokens in linear time.
 ## Sample usage
 
 Input file:
